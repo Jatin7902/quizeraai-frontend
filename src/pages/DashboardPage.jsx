@@ -28,6 +28,24 @@ import {
 const DashboardPage = () => {
   const { user, updateCredits } = useAuth();
   const { toast } = useToast();
+  
+  // Get API base URL from environment or use default
+  const getApiBaseUrl = () => {
+    if (import.meta.env.VITE_API_URL) {
+      return import.meta.env.VITE_API_URL;
+    }
+    const hostname = window.location.hostname;
+    if (hostname.includes('vercel.app')) {
+      return 'https://quizera-ai-backend.vercel.app/api';
+    }
+    return 'http://localhost:5000/api';
+  };
+  
+  const API_BASE_URL = getApiBaseUrl();
+  
+  // Debug logging
+  console.log('DashboardPage API_BASE_URL:', API_BASE_URL);
+  
   const fileInputRef = useRef(null);
   const [uploadType, setUploadType] = useState('pdf');
   const [outputType, setOutputType] = useState('');
@@ -194,7 +212,7 @@ const DashboardPage = () => {
           throw new Error('No authentication token found. Please login again.');
         }
 
-        response = await fetch('http://localhost:5000/api/quiz/generate', {
+        response = await fetch(`${API_BASE_URL}/quiz/generate`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -204,7 +222,7 @@ const DashboardPage = () => {
       } else if (uploadType === 'text') {
         console.log('Generating from text content');
         // Generate quiz from text
-        response = await fetch('http://localhost:5000/api/quiz/generate-text', {
+        response = await fetch(`${API_BASE_URL}/quiz/generate-text`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
