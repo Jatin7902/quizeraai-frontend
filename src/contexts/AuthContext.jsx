@@ -36,6 +36,7 @@ const getApiBaseUrl = () => {
     // For Vercel production deployment
     const apiUrl = 'https://quizera-ai-backend.vercel.app/api';
     console.log('Using Vercel API URL:', apiUrl);
+    console.log('Backend connection test:', apiUrl + '/test');
     return apiUrl;
   } else {
     // For mobile access, use the computer's IP address
@@ -45,11 +46,27 @@ const getApiBaseUrl = () => {
 
 const API_BASE_URL = getApiBaseUrl();
 
+// Test backend connection
+const testBackendConnection = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/test`);
+    const data = await response.json();
+    console.log('Backend connection test result:', data);
+    return data.success;
+  } catch (error) {
+    console.error('Backend connection failed:', error);
+    return false;
+  }
+};
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Test backend connection on app load
+    testBackendConnection();
+    
     const token = localStorage.getItem('quizera_token');
     const storedUser = localStorage.getItem('quizera_user');
     
