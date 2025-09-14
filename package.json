@@ -10,6 +10,7 @@
     "vercel-build": "vite build",
     "start": "vite preview --port 3000"
   },
+  "homepage": ".",
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-avatar": "^1.0.3",
