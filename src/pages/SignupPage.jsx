@@ -37,32 +37,7 @@ const SignupPage = () => {
   }, [countdown]);
 
   const handleSendOTP = async () => {
-    if (!name || !email || !password || !confirmPassword) {
-      toast({
-        title: "All fields required",
-        description: "Please fill in all the required fields first.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      toast({
-        title: "Password mismatch",
-        description: "Passwords do not match. Please try again.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (password.length < 6) {
-      toast({
-        title: "Password too short",
-        description: "Password must be at least 6 characters long.",
-        variant: "destructive",
-      });
-      return;
-    }
+    // Validation is already done in handleSubmit, so we can proceed directly
 
     setSendingOtp(true);
     try {
@@ -133,9 +108,18 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    // Debug logging
+    console.log('Form submission values:', { name, email, password, confirmPassword });
+    
     // This form is now just for validation before sending OTP
     // The actual signup happens in the verifyOTP step
-    if (!name || !email || !password || !confirmPassword) {
+    if (!name?.trim() || !email?.trim() || !password?.trim() || !confirmPassword?.trim()) {
+      console.log('Validation failed - missing fields:', { 
+        name: !name?.trim(), 
+        email: !email?.trim(), 
+        password: !password?.trim(), 
+        confirmPassword: !confirmPassword?.trim() 
+      });
       toast({
         title: "All fields required",
         description: "Please fill in all the required fields.",
@@ -250,6 +234,28 @@ const SignupPage = () => {
                   <p className="text-xs text-gray-400">
                     Password must be at least 6 characters long and include a lowercase letter, an uppercase letter, a number, and a symbol.
                   </p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="confirmPassword" className="text-white font-medium">Confirm Password</Label>
+                  <div className="relative">
+                    <Input
+                      id="confirmPassword"
+                      type={showConfirmPassword ? "text" : "password"}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      required
+                      className="bg-gray-700/50 border-gray-600/50 text-white placeholder:text-gray-400 focus:border-violet-500 focus:ring-violet-500/20 rounded-lg h-12 pr-12"
+                      placeholder="Confirm your password"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                    >
+                      {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
                 </div>
 
                 <Button 
