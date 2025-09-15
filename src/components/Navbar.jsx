@@ -101,7 +101,7 @@ const Navbar = () => {
                 </Link>
                 <Link to="/signup">
                   <Button className="bg-white text-purple-600 hover:bg-white/90 text-lg">
-                    Sign Up Free
+                    Try for Free
                   </Button>
                 </Link>
               </div>
@@ -180,7 +180,7 @@ const Navbar = () => {
                            <Button variant="ghost" className="w-full text-white text-lg hover:bg-white/10 px-6 py-3">Login</Button>
                          </Link>
                          <Link to="/signup" onClick={toggleMenu} className="flex-1">
-                           <Button className="w-full bg-white text-black hover:bg-white/90 text-lg px-6 py-3">Sign Up</Button>
+                           <Button className="w-full bg-white text-black hover:bg-white/90 text-lg px-6 py-3">Try for Free</Button>
                          </Link>
                       </div>
                   </div>
