@@ -101,7 +101,7 @@ const HomePage = () => {
                   {user ? (
                     <Link to="/dashboard">
                       <Button size="lg" className="bg-violet-600 text-white hover:bg-violet-700 text-lg px-8 py-6 h-auto rounded-full font-bold shadow-lg shadow-violet-500/30 transform hover:scale-105 transition-transform duration-300 button-shine w-full sm:w-auto">
-                        Dashboard <ArrowRight className="w-5 h-5 ml-2" />
+                        Go to Dashboard <ArrowRight className="w-5 h-5 ml-2" />
                       </Button>
                     </Link>
                   ) : (
