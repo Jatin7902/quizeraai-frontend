@@ -95,7 +95,7 @@ const Navbar = () => {
             ) : (
               <div className="flex items-center space-x-4">
                 <Link to="/login">
-                  <Button variant="ghost" className="text-white hover:bg-white/20 text-lg">
+                  <Button className="bg-green-600 text-white hover:bg-green-700 text-lg">
                     Login
                   </Button>
                 </Link>
@@ -177,7 +177,7 @@ const Navbar = () => {
                   <div className="pb-4">
                       <div className="flex items-center justify-center space-x-4">
                          <Link to="/login" onClick={toggleMenu} className="flex-1">
-                           <Button variant="ghost" className="w-full text-white text-lg hover:bg-white/10 px-6 py-3">Login</Button>
+                           <Button className="w-full bg-green-600 text-white hover:bg-green-700 text-lg px-6 py-3">Login</Button>
                          </Link>
                          <Link to="/signup" onClick={toggleMenu} className="flex-1">
                            <Button className="w-full bg-white text-black hover:bg-white/90 text-lg px-6 py-3">Try for Free</Button>
