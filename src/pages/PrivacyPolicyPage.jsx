@@ -3,9 +3,9 @@ import { Shield, Mail, Lock, Eye, Database, Users } from 'lucide-react';
 
 const PrivacyPolicyPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-800 to-gray-800">
       {/* Header */}
-      <div className="bg-black/20 backdrop-blur-sm border-b border-white/10">
+      <div className="bg-gray-800/30 backdrop-blur-sm border-b border-gray-700/30">
         <div className="container mx-auto px-4 py-12">
           <div className="text-center">
             <div className="flex items-center justify-center mb-6">
@@ -27,7 +27,7 @@ const PrivacyPolicyPage = () => {
         <div className="max-w-5xl mx-auto space-y-6">
             
           {/* Information We Collect */}
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 p-8 shadow-xl">
+          <div className="bg-gray-700/40 backdrop-blur-sm rounded-xl border border-gray-600/40 p-8 shadow-xl">
             <div className="flex items-center mb-6">
               <Database className="w-8 h-8 text-blue-400 mr-4" />
               <h2 className="text-3xl font-bold text-white">Information We Collect</h2>
@@ -60,7 +60,7 @@ const PrivacyPolicyPage = () => {
           </div>
 
           {/* How We Use Your Information */}
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 p-8 shadow-xl">
+          <div className="bg-gray-700/40 backdrop-blur-sm rounded-xl border border-gray-600/40 p-8 shadow-xl">
             <div className="flex items-center mb-6">
               <Eye className="w-8 h-8 text-blue-400 mr-4" />
               <h2 className="text-3xl font-bold text-white">How We Use Your Information</h2>
@@ -94,7 +94,7 @@ const PrivacyPolicyPage = () => {
           </div>
 
           {/* Data Security */}
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 p-8 shadow-xl">
+          <div className="bg-gray-700/40 backdrop-blur-sm rounded-xl border border-gray-600/40 p-8 shadow-xl">
             <div className="flex items-center mb-6">
               <Lock className="w-8 h-8 text-blue-400 mr-4" />
               <h2 className="text-3xl font-bold text-white">Data Security</h2>
@@ -123,7 +123,7 @@ const PrivacyPolicyPage = () => {
           </div>
 
           {/* Information Sharing */}
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 p-8 shadow-xl">
+          <div className="bg-gray-700/40 backdrop-blur-sm rounded-xl border border-gray-600/40 p-8 shadow-xl">
             <div className="flex items-center mb-6">
               <Users className="w-8 h-8 text-blue-400 mr-4" />
               <h2 className="text-3xl font-bold text-white">Information Sharing</h2>
@@ -152,7 +152,7 @@ const PrivacyPolicyPage = () => {
           </div>
 
           {/* Your Rights */}
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 p-8 shadow-xl">
+          <div className="bg-gray-700/40 backdrop-blur-sm rounded-xl border border-gray-600/40 p-8 shadow-xl">
             <h2 className="text-3xl font-bold text-white mb-6">Your Rights</h2>
             <p className="text-gray-300 mb-6 text-lg leading-relaxed">
               You have the right to access, update, or delete your personal information. You can also opt out of certain communications.
@@ -182,7 +182,7 @@ const PrivacyPolicyPage = () => {
           </div>
 
           {/* Cookies and Tracking */}
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 p-8 shadow-xl">
+          <div className="bg-gray-700/40 backdrop-blur-sm rounded-xl border border-gray-600/40 p-8 shadow-xl">
             <h2 className="text-3xl font-bold text-white mb-6">Cookies and Tracking</h2>
             <p className="text-gray-300 mb-6 text-lg leading-relaxed">
               We use cookies and similar technologies to enhance your experience, analyze usage patterns, and provide personalized content.
@@ -204,7 +204,7 @@ const PrivacyPolicyPage = () => {
           </div>
 
           {/* Changes to Privacy Policy */}
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 p-8 shadow-xl">
+          <div className="bg-gray-700/40 backdrop-blur-sm rounded-xl border border-gray-600/40 p-8 shadow-xl">
             <h2 className="text-3xl font-bold text-white mb-6">Changes to This Privacy Policy</h2>
             <p className="text-gray-300 text-lg leading-relaxed">
               We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.
@@ -212,7 +212,7 @@ const PrivacyPolicyPage = () => {
           </div>
 
           {/* Contact Us */}
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700/50 p-8 shadow-xl">
+          <div className="bg-gray-700/40 backdrop-blur-sm rounded-xl border border-gray-600/40 p-8 shadow-xl">
             <div className="flex items-center mb-6">
               <Mail className="w-8 h-8 text-blue-400 mr-4" />
               <h2 className="text-3xl font-bold text-white">Contact Us</h2>
@@ -220,7 +220,7 @@ const PrivacyPolicyPage = () => {
             <p className="text-gray-300 mb-6 text-lg leading-relaxed">
               If you have any questions about this Privacy Policy, please contact us at:
             </p>
-            <div className="bg-white/10 rounded-lg p-6">
+            <div className="bg-gray-600/30 rounded-lg p-6">
               <p className="text-white text-lg mb-3">
                 <strong>Email:</strong> 
                 <a href="mailto:support@quizera.ai" className="text-blue-400 hover:text-blue-300 underline ml-2">
