@@ -63,9 +63,9 @@ const FAQPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-800 to-gray-800">
       {/* Header */}
-      <div className="bg-black/20 backdrop-blur-sm border-b border-white/10">
+      <div className="bg-gray-800/30 backdrop-blur-sm border-b border-gray-700/30 pt-20">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
@@ -81,14 +81,14 @@ const FAQPage = () => {
       </div>
 
       {/* FAQ Content */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-12 mt-8">
         <div className="max-w-4xl mx-auto">
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <div key={index} className="bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 overflow-hidden">
+              <div key={index} className="bg-gray-700/40 backdrop-blur-sm rounded-lg border border-gray-600/40 overflow-hidden shadow-xl">
                 <button
                   onClick={() => toggleItem(index)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-white/5 transition-colors"
+                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-600/30 transition-colors"
                 >
                   <span className="text-white font-semibold text-lg">{faq.question}</span>
                   {openItems[index] ? (
@@ -108,7 +108,7 @@ const FAQPage = () => {
 
           {/* Contact Section */}
           <div className="mt-12 text-center">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-8">
+            <div className="bg-gray-700/40 backdrop-blur-sm rounded-lg border border-gray-600/40 p-8 shadow-xl">
               <h3 className="text-2xl font-bold text-white mb-4">Still have questions?</h3>
               <p className="text-gray-300 mb-6">
                 Our support team is here to help you get the most out of QuizEra AI.
