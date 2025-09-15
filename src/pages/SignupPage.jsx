@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/components/ui/use-toast';
-import { Eye, EyeOff, ArrowLeft, Mail, Clock } from 'lucide-react';
+import { Eye, EyeOff, ArrowLeft, Mail, Clock, X, User, Lock } from 'lucide-react';
 
 const SignupPage = () => {
   const [name, setName] = useState('');
@@ -173,59 +173,62 @@ const SignupPage = () => {
         <meta name="description" content="Create your free QuizEra AI account and get 4 free AI credits to start generating quizzes, test papers, and important questions instantly." />
       </Helmet>
 
-      <div className="min-h-screen flex items-center justify-center px-4 bg-pattern pt-20">
+      <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-gray-900 via-slate-800 to-gray-800 pt-20">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="w-full max-w-md"
+          className="w-full max-w-md relative"
         >
-          <div className="mb-6">
-            <Link to="/" className="inline-flex items-center text-white/80 hover:text-white transition-colors">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Home
-            </Link>
-          </div>
-
-          <Card className="glass-effect border-white/20 w-full mx-auto sm:w-full">
-            <CardHeader className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold text-2xl">Q</span>
+          <Card className="bg-gray-800/50 backdrop-blur-sm border-gray-700/50 shadow-2xl rounded-2xl overflow-hidden">
+            <CardHeader className="text-center pb-6 relative">
+              <div className="absolute top-4 right-4">
+                <Link to="/">
+                  <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white hover:bg-gray-700/50">
+                    <X className="w-5 h-5" />
+                  </Button>
+                </Link>
               </div>
-              <CardTitle className="text-2xl font-bold text-white">
-                Create Your Free Account
+              <div className="w-20 h-20 bg-gradient-to-br from-violet-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <User className="w-10 h-10 text-white" />
+              </div>
+              <CardTitle className="text-3xl font-bold text-white mb-2">
+                Create Account
               </CardTitle>
+              <p className="text-gray-300 text-sm">
+                Sign up for a new account to get started
+              </p>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="name" className="text-white">Name</Label>
+                  <Label htmlFor="name" className="text-white font-medium">Full Name</Label>
                   <Input
                     id="name"
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                    placeholder="Enter your full name"
+                    className="bg-gray-700/50 border-gray-600/50 text-white placeholder:text-gray-400 focus:border-violet-500 focus:ring-violet-500/20 rounded-lg h-12"
+                    placeholder="Enter your name"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-white">Email</Label>
+                  <Label htmlFor="email" className="text-white font-medium">Email</Label>
                   <Input
                     id="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
-                    placeholder="Enter your email"
+                    className="bg-gray-700/50 border-gray-600/50 text-white placeholder:text-gray-400 focus:border-violet-500 focus:ring-violet-500/20 rounded-lg h-12"
+                    placeholder="name@example.com"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-white">Password</Label>
+                  <Label htmlFor="password" className="text-white font-medium">Password</Label>
                   <div className="relative">
                     <Input
                       id="password"
@@ -233,47 +236,28 @@ const SignupPage = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="bg-white/10 border-white/20 text-white placeholder:text-white/50 pr-10"
+                      className="bg-gray-700/50 border-gray-600/50 text-white placeholder:text-gray-400 focus:border-violet-500 focus:ring-violet-500/20 rounded-lg h-12 pr-12"
                       placeholder="Create a password"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 hover:text-white"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
                     >
-                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
                   </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="confirmPassword" className="text-white">Confirm Password</Label>
-                  <div className="relative">
-                    <Input
-                      id="confirmPassword"
-                      type={showConfirmPassword ? "text" : "password"}
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      required
-                      className="bg-white/10 border-white/20 text-white placeholder:text-white/50 pr-10"
-                      placeholder="Confirm your password"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 hover:text-white"
-                    >
-                      {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                    </button>
-                  </div>
+                  <p className="text-xs text-gray-400">
+                    Password must be at least 6 characters long and include a lowercase letter, an uppercase letter, a number, and a symbol.
+                  </p>
                 </div>
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-white text-purple-600 hover:bg-white/90"
+                  className="w-full bg-gradient-to-r from-violet-600 to-purple-600 text-white hover:from-violet-700 hover:to-purple-700 h-12 rounded-lg font-semibold text-lg shadow-lg"
                   disabled={loading || sendingOtp}
                 >
-                  {loading ? "Creating Account..." : sendingOtp ? "Sending OTP..." : "Send OTP & Create Account"}
+                  {loading ? "Creating Account..." : sendingOtp ? "Sending OTP..." : "Create Account"}
                 </Button>
 
                 {otpSent && (
@@ -315,10 +299,32 @@ const SignupPage = () => {
                 )}
               </form>
 
+              <div className="relative my-6">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-600/50"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-4 bg-gray-800 text-gray-400">OR CONTINUE WITH</span>
+                </div>
+              </div>
+
+              <Button 
+                type="button"
+                className="w-full bg-gradient-to-r from-violet-600 to-purple-600 text-white hover:from-violet-700 hover:to-purple-700 h-12 rounded-lg font-semibold text-lg shadow-lg flex items-center justify-center gap-3"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.84.81-.62z"/>
+                  <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                Sign in with Google
+              </Button>
+
               <div className="mt-6 text-center">
-                <span className="text-white/70">Already have an account? </span>
-                <Link to="/login" className="text-white hover:underline font-medium">
-                  Login
+                <span className="text-gray-400">Already have an account? </span>
+                <Link to="/login" className="text-violet-400 hover:text-violet-300 font-medium">
+                  Sign in
                 </Link>
               </div>
             </CardContent>
