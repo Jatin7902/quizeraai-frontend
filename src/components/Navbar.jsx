@@ -94,11 +94,6 @@ const Navbar = () => {
                </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <Link to="/login">
-                  <Button className="bg-green-600 text-white hover:bg-green-700 text-lg">
-                    Login
-                  </Button>
-                </Link>
                 <Link to="/signup">
                   <Button className="bg-white text-purple-600 hover:bg-white/90 text-lg">
                     Try for Free
@@ -175,11 +170,8 @@ const Navbar = () => {
                     ))}
                   </div>
                   <div className="pb-4">
-                      <div className="flex items-center justify-center space-x-4">
-                         <Link to="/login" onClick={toggleMenu} className="flex-1">
-                           <Button className="w-full bg-green-600 text-white hover:bg-green-700 text-lg px-6 py-3">Login</Button>
-                         </Link>
-                         <Link to="/signup" onClick={toggleMenu} className="flex-1">
+                      <div className="flex items-center justify-center">
+                         <Link to="/signup" onClick={toggleMenu} className="w-full">
                            <Button className="w-full bg-white text-black hover:bg-white/90 text-lg px-6 py-3">Try for Free</Button>
                          </Link>
                       </div>
