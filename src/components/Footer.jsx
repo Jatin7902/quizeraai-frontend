@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone } from 'lucide-react';
+import { Twitter, Instagram, Mail, Phone } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 
 const Footer = () => {
@@ -27,17 +27,11 @@ const Footer = () => {
               Generate custom questions in your language for better exam preparation.
             </p>
             <div className="flex space-x-4">
-              <a href="#" onClick={handleLinkClick} className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-gray-400 hover:bg-gray-600 transition-colors">
-                <Facebook className="w-5 h-5" />
-              </a>
               <a href="https://x.com/QuizeraAi?t=If8KWppIfFUKrg3zy0zveg&s=09" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-gray-400 hover:bg-gray-600 transition-colors">
                 <Twitter className="w-5 h-5" />
               </a>
               <a href="https://www.instagram.com/quizera_ai?igsh=MTc0Z2tjdWt1a3FmMQ==" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-gray-400 hover:bg-gray-600 transition-colors">
                 <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" onClick={handleLinkClick} className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-gray-400 hover:bg-gray-600 transition-colors">
-                <Linkedin className="w-5 h-5" />
               </a>
             </div>
           </div>
@@ -48,9 +42,6 @@ const Footer = () => {
             <ul className="space-y-3">
               <li><Link to="#" onClick={handleLinkClick} className="text-gray-400 hover:text-white transition-colors">Features</Link></li>
               <li><Link to="/pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</Link></li>
-              <li><Link to="#" onClick={handleLinkClick} className="text-gray-400 hover:text-white transition-colors">Integrations</Link></li>
-              <li><Link to="#" onClick={handleLinkClick} className="text-gray-400 hover:text-white transition-colors">Updates</Link></li>
-              <li><Link to="#" onClick={handleLinkClick} className="text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
             </ul>
           </div>
 
@@ -60,8 +51,7 @@ const Footer = () => {
             <ul className="space-y-3 mb-6">
               <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About Us</Link></li>
               <li><Link to="#" onClick={handleLinkClick} className="text-gray-400 hover:text-white transition-colors">Careers</Link></li>
-              <li><Link to="#" onClick={handleLinkClick} className="text-gray-400 hover:text-white transition-colors">Blog</Link></li>
-              <li><Link to="#" onClick={handleLinkClick} className="text-gray-400 hover:text-white transition-colors">Press</Link></li>
+              <li><Link to="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
               <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
             </ul>
             <h3 className="text-lg font-semibold text-white mb-4">Contact Us</h3>

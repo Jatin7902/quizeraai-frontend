@@ -12,6 +12,7 @@ import ContactPage from '@/pages/ContactPage.jsx';
 import AboutPage from '@/pages/AboutPage.jsx';
 import SettingsPage from '@/pages/SettingsPage.jsx';
 import AdminPanel from '@/pages/AdminPanel.jsx';
+import FAQPage from '@/pages/FAQPage.jsx';
 import ProtectedRoute from '@/components/ProtectedRoute.jsx';
 import Navbar from '@/components/Navbar'; // Import Navbar
 import Footer from '@/components/Footer'; // Import Footer
@@ -30,6 +31,7 @@ function App() {
               <Route path="/pricing" element={<PricingPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/faq" element={<FAQPage />} />
               <Route 
                 path="/dashboard" 
                 element={
