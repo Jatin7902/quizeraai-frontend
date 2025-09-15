@@ -13,6 +13,7 @@ import AboutPage from '@/pages/AboutPage.jsx';
 import SettingsPage from '@/pages/SettingsPage.jsx';
 import AdminPanel from '@/pages/AdminPanel.jsx';
 import FAQPage from '@/pages/FAQPage.jsx';
+import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage.jsx';
 import ProtectedRoute from '@/components/ProtectedRoute.jsx';
 import Navbar from '@/components/Navbar'; // Import Navbar
 import Footer from '@/components/Footer'; // Import Footer
@@ -32,6 +33,7 @@ function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/faq" element={<FAQPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
               <Route 
                 path="/dashboard" 
                 element={

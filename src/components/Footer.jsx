@@ -72,7 +72,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between text-gray-500 text-sm">
           <span>© 2025 QuizEra AI. All rights reserved.</span>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link to="#" onClick={handleLinkClick} className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link to="#" onClick={handleLinkClick} className="hover:text-white transition-colors">Terms of Service</Link>
             <Link to="#" onClick={handleLinkClick} className="hover:text-white transition-colors">Cookie Policy</Link>
           </div>
