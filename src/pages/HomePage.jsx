@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   UploadCloud,
@@ -19,6 +20,7 @@ import {
 } from 'lucide-react';
 
 const HomePage = () => {
+  const { user } = useAuth();
   const howItWorksSteps = [
     {
       icon: <UploadCloud className="w-12 h-12 text-violet-400" />,
@@ -96,11 +98,19 @@ const HomePage = () => {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link to="/signup">
-                    <Button size="lg" className="bg-violet-600 text-white hover:bg-violet-700 text-lg px-8 py-6 h-auto rounded-full font-bold shadow-lg shadow-violet-500/30 transform hover:scale-105 transition-transform duration-300 button-shine w-full sm:w-auto">
-                      Get Started for Free <ArrowRight className="w-5 h-5 ml-2" />
-                    </Button>
-                  </Link>
+                  {user ? (
+                    <Link to="/dashboard">
+                      <Button size="lg" className="bg-violet-600 text-white hover:bg-violet-700 text-lg px-8 py-6 h-auto rounded-full font-bold shadow-lg shadow-violet-500/30 transform hover:scale-105 transition-transform duration-300 button-shine w-full sm:w-auto">
+                        Dashboard <ArrowRight className="w-5 h-5 ml-2" />
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link to="/signup">
+                      <Button size="lg" className="bg-violet-600 text-white hover:bg-violet-700 text-lg px-8 py-6 h-auto rounded-full font-bold shadow-lg shadow-violet-500/30 transform hover:scale-105 transition-transform duration-300 button-shine w-full sm:w-auto">
+                        Get Started for Free <ArrowRight className="w-5 h-5 ml-2" />
+                      </Button>
+                    </Link>
+                  )}
                 </div>
                 
 
