@@ -167,10 +167,6 @@ const Navbar = () => {
               ) : (
                 <>
                   <div className="flex flex-col space-y-2">
-                    <div className="flex justify-between items-center text-2xl text-white/80 py-4">
-                      <span>Theme</span>
-                      <ThemeToggle />
-                    </div>
                     {navLinks.map((link, index) => (
                       <motion.div key={link.to} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3, delay: 0.1 + index * 0.1 }}>
                         <Link to={link.to} onClick={toggleMenu} className="flex justify-between items-center text-2xl text-white/80 hover:text-white transition-colors py-4"><span>{link.text}</span><ChevronRight className="w-6 h-6 text-white/50" /></Link>
