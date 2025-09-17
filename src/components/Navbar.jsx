@@ -148,10 +148,6 @@ const Navbar = () => {
                       {isAdmin && (
                         <Link to="/admin" onClick={toggleMenu} className="flex justify-between items-center text-2xl text-white/80 hover:text-white transition-colors py-4"><span>Admin Panel</span><ChevronRight className="w-6 h-6 text-white/50" /></Link>
                       )}
-                      <div className="flex justify-between items-center text-2xl text-white/80 py-4">
-                        <span>Theme</span>
-                        <ThemeToggle />
-                      </div>
                       {navLinks.map((link) => (
                         <Link key={link.to} to={link.to} onClick={toggleMenu} className="flex justify-between items-center text-2xl text-white/80 hover:text-white transition-colors py-4"><span>{link.text}</span><ChevronRight className="w-6 h-6 text-white/50" /></Link>
                       ))}
