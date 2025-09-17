@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import HomePage from '@/pages/HomePage.jsx';
 import LoginPage from '@/pages/LoginPage.jsx';
 import SignupPage from '@/pages/SignupPage.jsx';
@@ -20,11 +21,12 @@ import Footer from '@/components/Footer'; // Import Footer
 
 function AppContent() {
   const location = useLocation();
+  const { theme } = useTheme();
   const hideFooterPaths = ['/login', '/signup'];
   const shouldShowFooter = !hideFooterPaths.includes(location.pathname);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className={`min-h-screen flex flex-col ${theme}`}>
       <Navbar /> {/* Render Navbar here */}
       <div className="flex-grow"> {/* This div will push the footer to the bottom */}
         <Routes>

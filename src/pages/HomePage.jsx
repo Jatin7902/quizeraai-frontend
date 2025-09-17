@@ -79,7 +79,7 @@ const HomePage = () => {
         <meta name="description" content="Turn any text, PDF, or image into a quiz instantly. AI-powered quiz and test generator for students and educators. Supports Hindi and English." />
       </Helmet>
 
-      <div className="min-h-screen bg-pattern text-white overflow-x-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-900 dark:via-blue-900 dark:to-indigo-900 text-gray-900 dark:text-white overflow-x-hidden">
         <main>
           {/* Hero Section */}
           <section className="pt-24 pb-16 md:pt-40 md:pb-24 px-4 relative min-h-screen flex items-center">
@@ -90,10 +90,10 @@ const HomePage = () => {
                 transition={{ duration: 0.8 }}
                 className="max-w-full sm:max-w-4xl mx-auto"
               >
-                <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
+                <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight">
                   <span className="inline-block whitespace-nowrap">Generate Questions</span> <span className="gradient-text">In Your Language</span>
                 </h1>
-                <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-10 max-w-full sm:max-w-2xl mx-auto leading-relaxed">
+                <p className="text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 mb-10 max-w-full sm:max-w-2xl mx-auto leading-relaxed">
                   Upload any educational content and generate quiz questions in Hindi, English, or any language of your choice. Perfect for exam preparation.
                 </p>
 

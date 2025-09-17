@@ -355,7 +355,7 @@ const DashboardPage = () => {
         <meta name="description" content="Generate AI-powered quizzes, test papers, and important questions from your uploaded content. Manage your AI credits and view your generation history." />
       </Helmet>
 
-      <div className="min-h-screen bg-pattern">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-900 dark:via-blue-900 dark:to-indigo-900">
         <Navbar />
         
         <div className="pt-24 pb-12">

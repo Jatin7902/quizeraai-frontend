@@ -75,7 +75,7 @@ const ContactPage = () => {
         <meta name="description" content="Have questions, bugs, or feedback about QuizEra AI? Contact us through our support form or check our frequently asked questions." />
       </Helmet>
 
-      <div className="min-h-screen bg-pattern">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-900 dark:via-blue-900 dark:to-indigo-900">
         <div className="pt-32 pb-20">
           <div className="container mx-auto">
             <motion.div

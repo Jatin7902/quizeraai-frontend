@@ -86,7 +86,7 @@ const SettingsPage = () => {
         <title>Settings - QuizEra AI</title>
         <meta name="description" content="Manage your account settings on QuizEra AI." />
       </Helmet>
-      <div className="min-h-screen bg-pattern text-white">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-900 dark:via-blue-900 dark:to-indigo-900 text-gray-900 dark:text-white">
         <Navbar />
         <main className="container mx-auto w-full sm:max-w-2xl pt-24 pb-12 px-4">
           <div className="space-y-8">
