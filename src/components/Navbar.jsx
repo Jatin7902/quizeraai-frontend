@@ -7,7 +7,6 @@ import { useAuth } from '@/contexts/AuthContext';
 import { UserNav } from '@/components/UserNav';
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Menu, X, ChevronRight, LogOut } from 'lucide-react';
-import ThemeToggle from '@/components/ThemeToggle';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -61,7 +60,7 @@ const Navbar = () => {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-white/20 dark:bg-black/20 backdrop-blur-md border-b border-gray-200/20 dark:border-white/20"
+        className="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-white/20"
       >
         <div className="container mx-auto px-4 py-2 flex items-center justify-between">
           <Link to="/" className="flex items-center" onClick={() => setIsMenuOpen(false)}>
@@ -80,25 +79,23 @@ const Navbar = () => {
             {user ? (
                <div className="flex items-center space-x-4">
                  <Link to="/dashboard">
-                   <Button variant="ghost" className="text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-white/20 text-lg">
+                   <Button variant="ghost" className="text-white hover:bg-white/20 text-lg">
                      Dashboard
                    </Button>
                  </Link>
                  {isAdmin && (
                    <Link to="/admin">
-                     <Button variant="ghost" className="text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-white/20 text-lg">
+                     <Button variant="ghost" className="text-white hover:bg-white/20 text-lg">
                        Admin Panel
                      </Button>
                    </Link>
                  )}
-                 <ThemeToggle />
                  <UserNav />
                </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <ThemeToggle />
                 <Link to="/signup">
-                  <Button className="bg-purple-600 text-white hover:bg-purple-700 dark:bg-white dark:text-purple-600 dark:hover:bg-white/90 text-lg">
+                  <Button className="bg-white text-purple-600 hover:bg-white/90 text-lg">
                     Try for Free
                   </Button>
                 </Link>
@@ -151,10 +148,6 @@ const Navbar = () => {
                       {isAdmin && (
                         <Link to="/admin" onClick={toggleMenu} className="flex justify-between items-center text-2xl text-white/80 hover:text-white transition-colors py-4"><span>Admin Panel</span><ChevronRight className="w-6 h-6 text-white/50" /></Link>
                       )}
-                      <div className="flex justify-between items-center text-2xl text-white/80 py-4">
-                        <span>Theme</span>
-                        <ThemeToggle />
-                      </div>
                       {navLinks.map((link) => (
                         <Link key={link.to} to={link.to} onClick={toggleMenu} className="flex justify-between items-center text-2xl text-white/80 hover:text-white transition-colors py-4"><span>{link.text}</span><ChevronRight className="w-6 h-6 text-white/50" /></Link>
                       ))}

@@ -145,7 +145,7 @@ const SignupPage = () => {
         <meta name="description" content="Create your free QuizEra AI account and get 4 free AI credits to start generating quizzes, test papers, and important questions instantly." />
       </Helmet>
 
-      <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-900 dark:via-blue-900 dark:to-indigo-900">
+      <div className="min-h-screen flex items-center justify-center px-4 bg-pattern">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -159,12 +159,12 @@ const SignupPage = () => {
             </Link>
           </div>
 
-          <Card className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-gray-200 dark:border-white/20 w-full mx-auto sm:w-full shadow-xl">
+          <Card className="glass-effect border-white/20 w-full mx-auto sm:w-full">
             <CardHeader className="text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <span className="text-white font-bold text-2xl">Q</span>
               </div>
-              <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
+              <CardTitle className="text-2xl font-bold text-white">
                 Create Your Free Account
               </CardTitle>
             </CardHeader>

@@ -56,7 +56,7 @@ const LoginPage = () => {
         <meta name="description" content="Login to your QuizEra AI account to access your dashboard and generate AI-powered quizzes, test papers, and important questions." />
       </Helmet>
 
-      <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-900 dark:via-blue-900 dark:to-indigo-900">
+      <div className="min-h-screen flex items-center justify-center px-4 bg-pattern">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -64,13 +64,13 @@ const LoginPage = () => {
           className="w-full max-w-md"
         >
           <div className="mb-6">
-            <Link to="/" className="inline-flex items-center text-gray-600 dark:text-white/80 hover:text-gray-900 dark:hover:text-white transition-colors">
+            <Link to="/" className="inline-flex items-center text-white/80 hover:text-white transition-colors">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Home
             </Link>
           </div>
 
-          <Card className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-gray-200 dark:border-white/20 w-full mx-auto sm:w-full shadow-xl">
+          <Card className="bg-white/90 dark:glass-effect border-gray-200 dark:border-white/20 w-full mx-auto sm:w-full shadow-xl">
             <CardHeader className="text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <span className="text-white font-bold text-2xl">Q</span>
