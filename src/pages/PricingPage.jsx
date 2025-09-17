@@ -76,7 +76,7 @@ const PricingPage = () => {
         <meta name="description" content="Choose the perfect plan for your learning needs. Free plan with 4 AI credits, Basic plan for ₹49/month, or Pro plan for ₹99/month with advanced features." />
       </Helmet>
 
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:bg-pattern">
+      <div className="min-h-screen bg-pattern">
         <div className="pt-32 pb-20">
           <div className="container mx-auto">
             <motion.div

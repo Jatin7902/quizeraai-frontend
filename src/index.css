@@ -32,11 +32,10 @@
 }
 
 body {
-  background-color: hsl(var(--background));
+  background-color: #0A0A0A;
   font-family: 'Inter', sans-serif;
   color: hsl(var(--foreground));
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .glass-effect {

@@ -7,6 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { UserNav } from '@/components/UserNav';
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Menu, X, ChevronRight, LogOut } from 'lucide-react';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -90,10 +91,12 @@ const Navbar = () => {
                      </Button>
                    </Link>
                  )}
+                 <ThemeToggle />
                  <UserNav />
                </div>
             ) : (
               <div className="flex items-center space-x-4">
+                <ThemeToggle />
                 <Link to="/signup">
                   <Button className="bg-white text-purple-600 hover:bg-white/90 text-lg">
                     Try for Free
@@ -148,6 +151,10 @@ const Navbar = () => {
                       {isAdmin && (
                         <Link to="/admin" onClick={toggleMenu} className="flex justify-between items-center text-2xl text-white/80 hover:text-white transition-colors py-4"><span>Admin Panel</span><ChevronRight className="w-6 h-6 text-white/50" /></Link>
                       )}
+                      <div className="flex justify-between items-center text-2xl text-white/80 py-4">
+                        <span>Theme</span>
+                        <ThemeToggle />
+                      </div>
                       {navLinks.map((link) => (
                         <Link key={link.to} to={link.to} onClick={toggleMenu} className="flex justify-between items-center text-2xl text-white/80 hover:text-white transition-colors py-4"><span>{link.text}</span><ChevronRight className="w-6 h-6 text-white/50" /></Link>
                       ))}
