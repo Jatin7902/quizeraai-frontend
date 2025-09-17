@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/components/ui/use-toast';
 import Navbar from '@/components/Navbar';
+import { useAuth } from '@/contexts/AuthContext';
 import { 
   Users, 
   FileText, 
@@ -41,11 +42,98 @@ import {
 
 const AdminPanel = () => {
   const { toast } = useToast();
+  const { user, token } = useAuth();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
-  
+  const [analytics, setAnalytics] = useState(null);
+  const [userActivity, setUserActivity] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // API Base URL
+  const API_BASE = 'https://quizera-ai-backend.vercel.app';
+
+  // Fetch analytics data
+  const fetchAnalytics = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${API_BASE}/api/admin/analytics`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch analytics');
+      }
+      
+      const data = await response.json();
+      setAnalytics(data.analytics);
+    } catch (error) {
+      console.error('Error fetching analytics:', error);
+      toast({
+        title: "Error",
+        description: "Failed to fetch analytics data",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch user activity data
+  const fetchUserActivity = async (page = 1, search = '', status = 'all') => {
+    try {
+      setLoading(true);
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: '50',
+        search,
+        status
+      });
+      
+      const response = await fetch(`${API_BASE}/api/admin/user-activity?${params}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch user activity');
+      }
+      
+      const data = await response.json();
+      setUserActivity(data);
+    } catch (error) {
+      console.error('Error fetching user activity:', error);
+      toast({
+        title: "Error",
+        description: "Failed to fetch user activity data",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Load data on component mount
+  useEffect(() => {
+    if (token) {
+      fetchAnalytics();
+      fetchUserActivity();
+    }
+  }, [token]);
+
+  // Load data when tab changes
+  useEffect(() => {
+    if (token && activeTab === 'users') {
+      fetchUserActivity(currentPage, searchTerm, filterStatus);
+    }
+  }, [activeTab, currentPage, searchTerm, filterStatus, token]);
+
   // Mock data - in real app, this would come from API
   const [users, setUsers] = useState([
     {
@@ -146,15 +234,24 @@ const AdminPanel = () => {
     }
   ]);
 
-  // Analytics data
-  const analytics = {
-    totalUsers: users.length,
-    activeUsers: users.filter(u => u.status === 'active').length,
-    totalUploads: uploads.length,
-    totalQuizzes: quizzes.length,
-    dailyActiveUsers: 15,
-    weeklyActiveUsers: 45,
-    monthlyRevenue: 2500
+  // Use real analytics data or fallback to mock data
+  const analyticsData = analytics || {
+    totalUsers: 0,
+    activeUsers: 0,
+    inactiveUsers: 0,
+    dailyActiveUsers: 0,
+    weeklyActiveUsers: 0,
+    monthlyActiveUsers: 0,
+    totalUploads: 0,
+    totalQuizzes: 0,
+    monthlyRevenue: 0,
+    userTrends: [],
+    creditsStats: {
+      totalCredits: 0,
+      avgCredits: 0,
+      minCredits: 0,
+      maxCredits: 0
+    }
   };
 
   const handleUserAction = (userId, action) => {
@@ -201,10 +298,12 @@ const AdminPanel = () => {
     });
   };
 
-  const filteredUsers = users.filter(user => {
+  // Use real user data or fallback to mock data
+  const displayUsers = userActivity?.users || users;
+  const filteredUsers = displayUsers.filter(user => {
     const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          user.email.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = filterStatus === 'all' || user.status === filterStatus;
+    const matchesFilter = filterStatus === 'all' || (user.isVerified ? 'active' : 'inactive') === filterStatus;
     return matchesSearch && matchesFilter;
   });
 
@@ -217,7 +316,7 @@ const AdminPanel = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-white/60 text-sm">Total Users</p>
-                <p className="text-3xl font-bold text-white">{analytics.totalUsers}</p>
+                <p className="text-3xl font-bold text-white">{analyticsData.totalUsers}</p>
               </div>
               <Users className="w-8 h-8 text-blue-400" />
             </div>
@@ -229,7 +328,7 @@ const AdminPanel = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-white/60 text-sm">Active Users</p>
-                <p className="text-3xl font-bold text-white">{analytics.activeUsers}</p>
+                <p className="text-3xl font-bold text-white">{analyticsData.activeUsers}</p>
               </div>
               <Activity className="w-8 h-8 text-green-400" />
             </div>
@@ -240,8 +339,8 @@ const AdminPanel = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-white/60 text-sm">Total Uploads</p>
-                <p className="text-3xl font-bold text-white">{analytics.totalUploads}</p>
+                <p className="text-white/60 text-sm">New This Week</p>
+                <p className="text-3xl font-bold text-white">{analyticsData.weeklyActiveUsers}</p>
               </div>
               <Upload className="w-8 h-8 text-purple-400" />
             </div>
@@ -252,8 +351,8 @@ const AdminPanel = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-white/60 text-sm">Quizzes Generated</p>
-                <p className="text-3xl font-bold text-white">{analytics.totalQuizzes}</p>
+                <p className="text-white/60 text-sm">Total Credits</p>
+                <p className="text-3xl font-bold text-white">{analyticsData.creditsStats.totalCredits}</p>
               </div>
               <FileText className="w-8 h-8 text-orange-400" />
             </div>
@@ -271,11 +370,37 @@ const AdminPanel = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-64 flex items-center justify-center text-white/60">
-              <div className="text-center">
-                <BarChart3 className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                <p>Chart will be implemented here</p>
-              </div>
+            <div className="h-64">
+              {analyticsData.userTrends && analyticsData.userTrends.length > 0 ? (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-7 gap-2">
+                    {analyticsData.userTrends.map((day, index) => (
+                      <div key={index} className="text-center">
+                        <div className="text-xs text-white/60 mb-1">
+                          {new Date(day.date).toLocaleDateString('en-US', { weekday: 'short' })}
+                        </div>
+                        <div className="bg-blue-500/20 rounded h-16 flex items-end justify-center">
+                          <div 
+                            className="bg-blue-500 rounded-t w-full transition-all duration-300"
+                            style={{ height: `${Math.max((day.count / Math.max(...analyticsData.userTrends.map(d => d.count))) * 100, 5)}%` }}
+                          ></div>
+                        </div>
+                        <div className="text-xs text-white mt-1">{day.count}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="text-center text-white/60 text-sm">
+                    User registrations over the last 7 days
+                  </div>
+                </div>
+              ) : (
+                <div className="h-full flex items-center justify-center text-white/60">
+                  <div className="text-center">
+                    <BarChart3 className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                    <p>No data available</p>
+                  </div>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -332,10 +457,22 @@ const AdminPanel = () => {
         <CardHeader>
           <CardTitle className="text-white flex items-center justify-between">
             <span>User Management</span>
-            <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
-              <Download className="w-4 h-4 mr-2" />
-              Export
-            </Button>
+            <div className="flex space-x-2">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="border-white/20 text-white hover:bg-white/10"
+                onClick={() => fetchUserActivity(currentPage, searchTerm, filterStatus)}
+                disabled={loading}
+              >
+                <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+                Refresh
+              </Button>
+              <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10">
+                <Download className="w-4 h-4 mr-2" />
+                Export
+              </Button>
+            </div>
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -353,7 +490,7 @@ const AdminPanel = () => {
               </thead>
               <tbody>
                 {filteredUsers.map((user) => (
-                  <tr key={user.id} className="border-b border-white/5">
+                  <tr key={user._id || user.id} className="border-b border-white/5">
                     <td className="py-3 px-4">
                       <div>
                         <p className="text-white font-medium">{user.name}</p>
@@ -362,21 +499,23 @@ const AdminPanel = () => {
                     </td>
                     <td className="py-3 px-4">
                       <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs ${
-                        user.status === 'active' 
+                        user.isVerified 
                           ? 'bg-green-500/20 text-green-400' 
                           : 'bg-red-500/20 text-red-400'
                       }`}>
-                        {user.status === 'active' ? (
+                        {user.isVerified ? (
                           <CheckCircle className="w-3 h-3 mr-1" />
                         ) : (
                           <XCircle className="w-3 h-3 mr-1" />
                         )}
-                        {user.status}
+                        {user.isVerified ? 'active' : 'inactive'}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-white">{user.credits}</td>
-                    <td className="py-3 px-4 text-white">{user.uploads}</td>
-                    <td className="py-3 px-4 text-white/60 text-sm">{user.lastLogin}</td>
+                    <td className="py-3 px-4 text-white">{user.credits || 0}</td>
+                    <td className="py-3 px-4 text-white">{user.uploads || 0}</td>
+                    <td className="py-3 px-4 text-white/60 text-sm">
+                      {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
+                    </td>
                     <td className="py-3 px-4">
                       <div className="flex space-x-2">
                         <Button
@@ -402,6 +541,44 @@ const AdminPanel = () => {
               </tbody>
             </table>
           </div>
+          
+          {/* Pagination */}
+          {userActivity?.pagination && (
+            <div className="flex items-center justify-between mt-6 pt-4 border-t border-white/10">
+              <div className="text-white/60 text-sm">
+                Showing {((userActivity.pagination.currentPage - 1) * userActivity.pagination.limit) + 1} to{' '}
+                {Math.min(userActivity.pagination.currentPage * userActivity.pagination.limit, userActivity.pagination.totalUsers)} of{' '}
+                {userActivity.pagination.totalUsers} users
+              </div>
+              <div className="flex space-x-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-white/20 text-white hover:bg-white/10"
+                  onClick={() => {
+                    setCurrentPage(prev => Math.max(prev - 1, 1));
+                  }}
+                  disabled={userActivity.pagination.currentPage <= 1 || loading}
+                >
+                  Previous
+                </Button>
+                <span className="px-3 py-1 text-white/60 text-sm">
+                  Page {userActivity.pagination.currentPage} of {userActivity.pagination.totalPages}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-white/20 text-white hover:bg-white/10"
+                  onClick={() => {
+                    setCurrentPage(prev => Math.min(prev + 1, userActivity.pagination.totalPages));
+                  }}
+                  disabled={userActivity.pagination.currentPage >= userActivity.pagination.totalPages || loading}
+                >
+                  Next
+                </Button>
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

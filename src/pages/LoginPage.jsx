@@ -34,15 +34,14 @@ const LoginPage = () => {
       } else {
         toast({
           title: "Login failed",
-          description: result.message || "Please check your credentials and try again.",
+          description: result.error,
           variant: "destructive",
         });
       }
     } catch (error) {
-      console.error('Login error:', error);
       toast({
-        title: "Login failed",
-        description: "An unexpected error occurred. Please try again.",
+        title: "Error",
+        description: "Something went wrong. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -107,38 +106,30 @@ const LoginPage = () => {
                       className="bg-white/10 border-white/20 text-white placeholder:text-white/50 pr-10"
                       placeholder="Enter your password"
                     />
-                    <Button
+                    <button
                       type="button"
-                      variant="ghost"
-                      size="sm"
-                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                       onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 hover:text-white"
                     >
-                      {showPassword ? (
-                        <EyeOff className="h-4 w-4 text-white/50" />
-                      ) : (
-                        <Eye className="h-4 w-4 text-white/50" />
-                      )}
-                    </Button>
+                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
                   </div>
                 </div>
 
-                <Button
-                  type="submit"
-                  className="w-full bg-violet-600 hover:bg-violet-700 text-white"
+                <Button 
+                  type="submit" 
+                  className="w-full bg-white text-purple-600 hover:bg-white/90"
                   disabled={loading}
                 >
-                  {loading ? "Signing in..." : "Sign In"}
+                  {loading ? "Logging in..." : "Login"}
                 </Button>
               </form>
 
               <div className="mt-6 text-center">
-                <p className="text-white/80">
-                  Don't have an account?{" "}
-                  <Link to="/signup" className="text-violet-400 hover:text-violet-300 font-medium">
-                    Sign up for free
-                  </Link>
-                </p>
+                <span className="text-white/70">Don't have an account? </span>
+                <Link to="/signup" className="text-white hover:underline font-medium">
+                  Sign Up
+                </Link>
               </div>
             </CardContent>
           </Card>
