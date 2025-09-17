@@ -6,7 +6,6 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent } from '@/components/ui/card';
-import { useTheme } from '@/contexts/ThemeContext';
 import {
   UploadCloud,
   Cpu,
@@ -22,7 +21,6 @@ import {
 
 const HomePage = () => {
   const { user } = useAuth();
-  const { isLight } = useTheme();
   const howItWorksSteps = [
     {
       icon: <UploadCloud className="w-12 h-12 text-violet-400" />,
@@ -81,7 +79,7 @@ const HomePage = () => {
         <meta name="description" content="Turn any text, PDF, or image into a quiz instantly. AI-powered quiz and test generator for students and educators. Supports Hindi and English." />
       </Helmet>
 
-      <div className={`min-h-screen ${isLight ? 'bg-white text-gray-900' : 'bg-pattern text-white'} overflow-x-hidden`}>
+      <div className="min-h-screen bg-pattern text-white overflow-x-hidden">
         <main>
           {/* Hero Section */}
           <section className="pt-24 pb-16 md:pt-40 md:pb-24 px-4 relative min-h-screen flex items-center">
@@ -92,10 +90,10 @@ const HomePage = () => {
                 transition={{ duration: 0.8 }}
                 className="max-w-full sm:max-w-4xl mx-auto"
               >
-                <h1 className={`text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-extrabold ${isLight ? 'text-gray-900' : 'text-white'} mb-6 leading-tight`}>
+                <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
                   <span className="inline-block whitespace-nowrap">Generate Questions</span> <span className="gradient-text">In Your Language</span>
                 </h1>
-                <p className={`text-lg md:text-xl lg:text-2xl ${isLight ? 'text-gray-600' : 'text-gray-300'} mb-10 max-w-full sm:max-w-2xl mx-auto leading-relaxed`}>
+                <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-10 max-w-full sm:max-w-2xl mx-auto leading-relaxed">
                   Upload any educational content and generate quiz questions in Hindi, English, or any language of your choice. Perfect for exam preparation.
                 </p>
 
