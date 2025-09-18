@@ -51,6 +51,7 @@ const DashboardPage = () => {
   const [outputType, setOutputType] = useState('');
   const [language, setLanguage] = useState('');
   const [difficulty, setDifficulty] = useState('');
+  const [numQuestions, setNumQuestions] = useState(10);
   const [textContent, setTextContent] = useState('');
   const [loading, setLoading] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -202,7 +203,7 @@ const DashboardPage = () => {
         // Generate quiz from PDF
         const formData = new FormData();
         formData.append('pdf', uploadedFile);
-        formData.append('numQuestions', '10');
+        formData.append('numQuestions', numQuestions.toString());
         formData.append('language', language);
         formData.append('difficulty', difficulty);
         formData.append('outputType', outputType);
@@ -213,6 +214,30 @@ const DashboardPage = () => {
         }
 
         response = await fetch(`${API_BASE_URL}/quiz/generate`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          body: formData
+        });
+      } else if (uploadType === 'image') {
+        console.log('Generating from image:', uploadedFile?.name);
+        console.log('Auth token:', localStorage.getItem('quizera_token') ? 'Present' : 'Missing');
+        
+        // Generate quiz from image
+        const formData = new FormData();
+        formData.append('image', uploadedFile);
+        formData.append('numQuestions', numQuestions.toString());
+        formData.append('language', language);
+        formData.append('difficulty', difficulty);
+        formData.append('outputType', outputType);
+
+        const token = localStorage.getItem('quizera_token');
+        if (!token) {
+          throw new Error('No authentication token found. Please login again.');
+        }
+
+        response = await fetch(`${API_BASE_URL}/quiz/generate-image`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -230,7 +255,7 @@ const DashboardPage = () => {
           },
           body: JSON.stringify({
             text: textContent,
-            numQuestions: 10,
+            numQuestions: numQuestions,
             language,
             difficulty,
             outputType
@@ -238,21 +263,23 @@ const DashboardPage = () => {
         });
       }
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (!response || !response.ok) {
+        throw new Error(`HTTP error! status: ${response ? response.status : 'No response'}`);
       }
 
       const data = await response.json();
       console.log('API Response:', data);
 
       if (data.success) {
-        setGeneratedQuiz(data.quiz);
+        // Handle different response formats for different upload types
+        const quizData = data.data || data.quiz || data;
+        setGeneratedQuiz(quizData);
         setShowQuiz(true);
         updateCredits(data.creditsRemaining);
         
         toast({
           title: "Quiz Generated Successfully!",
-          description: `${data.quiz.totalQuestions} questions generated. 1 credit used.`,
+          description: `${quizData.totalQuestions || quizData.questions?.length} questions generated. 1 credit used.`,
         });
       } else {
         toast({
@@ -579,8 +606,8 @@ const DashboardPage = () => {
                         </div>
                       </div>
 
-                      {/* Language and Difficulty */}
-                      <div className="grid md:grid-cols-2 gap-4">
+                      {/* Language, Difficulty, and Question Count */}
+                      <div className="grid md:grid-cols-3 gap-4">
                         <div>
                           <Label className="text-white mb-2 block">Choose Language:</Label>
                           <Select value={language} onValueChange={setLanguage}>
@@ -606,6 +633,25 @@ const DashboardPage = () => {
                               <SelectItem value="Easy">Easy (आसान)</SelectItem>
                               <SelectItem value="Medium">Medium (मध्यम)</SelectItem>
                               <SelectItem value="Hard">Hard (कठिन)</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div>
+                          <Label className="text-white mb-2 block">Number of Questions:</Label>
+                          <Select value={numQuestions.toString()} onValueChange={(value) => setNumQuestions(parseInt(value))}>
+                            <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                              <SelectValue placeholder="Select questions" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="5">5 Questions</SelectItem>
+                              <SelectItem value="10">10 Questions</SelectItem>
+                              <SelectItem value="15">15 Questions</SelectItem>
+                              <SelectItem value="20">20 Questions</SelectItem>
+                              <SelectItem value="25">25 Questions</SelectItem>
+                              <SelectItem value="30">30 Questions</SelectItem>
+                              <SelectItem value="40">40 Questions</SelectItem>
+                              <SelectItem value="50">50 Questions</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
